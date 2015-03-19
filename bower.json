@@ -1,0 +1,23 @@
+{
+  "name": "backbone-model-event-propagation",
+  "version": "0.0.0",
+  "homepage": "https://github.com/valaxy/backbone-model-event-propagation",
+  "authors": [
+    "tianyuzou <valaxy@qq.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "requirejs": "~2.1.16",
+    "qunit": "~1.17.1"
+  },
+  "dependencies": {
+    "backbone": "~1.1.2"
+  }
+}
