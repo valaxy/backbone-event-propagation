@@ -1,42 +1,37 @@
 define(function (require, exports) {
 
-	var propagationify = function (Model) {
-
-		// override tigger()
+	// different event name
+	exports.mixin = function (Model) {
 		var oldTrigger = Model.prototype.trigger
 
-		var newTrigger = function (/** name* */) {
-			var model = this
-			while (model) {
-				oldTrigger.apply(model, arguments)
-				if (typeof model.propagation == 'function') {
-					model = model.get(model.propagation())
-				} else { // string
-					model = model.get(String(model.propagation))
+		// override trigger()
+		Model.prototype.trigger = function (/** name* */) {
+			oldTrigger.apply(this, arguments)
+			if (this.propagation) {
+				if (!Array.isArray(this.propagation)) {
+					this.propagation = [this.propagation]
+				}
+
+				for (var i in this.propagation) {
+					var pro = this.propagation[i]
+
+					if (typeof pro == 'function') {
+						var model = this.get(pro.call(this))
+					} else { // string
+						var model = this.get(String(pro))
+					}
+
+					var paras = []
+					for (var i = 0; i < arguments.length; i++) {
+						paras.push(arguments[i])
+					}
+					paras.push(model)
+					model.trigger.apply(model, paras)
 				}
 			}
 		}
 
-		Model.prototype.trigger = newTrigger
-
-
-		// override initialize() (no need)
-		//var oldInitialize = Model.prototype.initialize
-
-		//var newInitialize = function (options) {
-		//	oldInitialize.apply(this, arguments)
-		//	if (options) {
-		//		if (typeof options.propagation == 'function') {
-		//			this.propagation = options.propagation
-		//		} else {
-		//			this.propagation = String(options.propagation)
-		//		}
-		//	}
-		//}
-
-
-		//Model.prototype.initialize = newInitialize
+		return Model
 	}
 
-	return propagationify
 })

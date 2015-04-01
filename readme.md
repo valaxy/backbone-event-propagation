@@ -1,1 +1,3 @@
-> It's not AMD module
+> It's under development
+
+- only support Model
