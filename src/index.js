@@ -21,12 +21,14 @@ define(function (require, exports) {
 						var model = this.get(String(pro))
 					}
 
-					var paras = []
-					for (var i = 0; i < arguments.length; i++) {
-						paras.push(arguments[i])
+					if (model) {
+						var paras = []
+						for (var i = 0; i < arguments.length; i++) {
+							paras.push(arguments[i])
+						}
+						paras.push(model)
+						model.trigger.apply(model, paras)
 					}
-					paras.push(model)
-					model.trigger.apply(model, paras)
 				}
 			}
 		}
