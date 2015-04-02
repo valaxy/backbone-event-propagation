@@ -18,12 +18,14 @@ define(function (require) {
 		})
 		var count = 0
 
-		parent.listenTo(parent, 'my-event', function () {
+		parent.listenTo(parent, 'my-event', function (target) {
 			count++
+			assert.equal(target, model)
 		})
 
-		model.listenTo(model, 'my-event', function () {
+		model.listenTo(model, 'my-event', function (target) {
 			count++
+			assert.equal(target, undefined)
 		})
 
 

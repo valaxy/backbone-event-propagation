@@ -26,7 +26,7 @@ define(function (require, exports) {
 						for (var i = 0; i < arguments.length; i++) {
 							paras.push(arguments[i])
 						}
-						paras.push(model)
+						paras.push(this)
 						model.trigger.apply(model, paras)
 					}
 				}
