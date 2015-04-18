@@ -16,9 +16,9 @@ define(function (require, exports) {
 					var pro = this.propagation[i]
 
 					if (typeof pro == 'function') {
-						var model = this.get(pro.call(this))
+						var model = pro.call(this)
 					} else { // string
-						var model = this.get(String(pro))
+						var model = this.get(String(pro)) // model.get
 					}
 
 					if (model) {

@@ -13,8 +13,11 @@ html
         script(src="../../bower_components/qunit/qunit/qunit.js")
         script(src="../../bower_components/requirejs/require.js")
         script.
-            require.config({
-                baseUrl: '../../'
+            requirejs.config({
+                baseUrl: '../../',
+                paths: {
+                    sinon: 'bower_components/sinonjs/sinon'
+                }
             })
             require(['test/unit/test'], function () {
 
