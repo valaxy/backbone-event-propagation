@@ -16,10 +16,10 @@
     ],
     "devDependencies": {
         "requirejs": "~2.1.16",
-        "qunit": "~1.17.1"
+        "qunit": "~1.17.1",
+        "sinonjs": "~1.14.1"
     },
     "dependencies": {
-        "backbone": "~1.1.2",
-        "sinonjs": "~1.14.1"
+        "backbone": "~1.1.2"
     }
 }
