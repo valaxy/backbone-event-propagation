@@ -1,10 +1,11 @@
 define(function (require) {
 	var propagation = require('index')
 	var sinon = require('sinon')
+	var _ = require('underscore')
 
 	QUnit.module('index')
 
-	QUnit.test('propagation: string', function (assert) {
+	var createSimpleCase = function () {
 		var ParentModel = propagation.mixin(Backbone.Model.extend({}))
 		var ChildModel = propagation.mixin(Backbone.Model.extend({
 			propagation: {
@@ -22,6 +23,15 @@ define(function (require) {
 			name  : 'c'
 		})
 
+
+		return [child, parent]
+	}
+
+	QUnit.test('propagation: string', function (assert) {
+		var case0 = createSimpleCase()
+
+		var child = case0[0]
+		var parent = case0[1]
 
 		var parentProSpy = sinon.spy()
 		var parentSpy = sinon.spy()
@@ -74,6 +84,19 @@ define(function (require) {
 		child.trigger('event', 'str')
 
 		assert.ok(spy.calledOnce)
+	})
+
+
+	QUnit.test('mixinObject', function (assert) {
+		var event = _.extend(Backbone.Events, propagation.mixin())
+		var case0 = createSimpleCase()
+		var child = case0[0]
+		var parent = case0[1]
+
+		event.listenToPro(parent, 'child', 'event', function () {
+			assert.ok(true)
+		})
+		child.trigger('event')
 	})
 
 })

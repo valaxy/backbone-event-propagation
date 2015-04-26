@@ -1,11 +1,9 @@
 define(function (require, exports) {
-	var _ = require('underscore')
-
 	var PropagationEvent = function () {
 		this.path = ''
 	}
 
-	var clone = function (e) {
+	var clonePropagationEvent = function (e) {
 		var newE = new PropagationEvent
 		for (var key in e) {
 			newE[key] = e[key]
@@ -14,8 +12,28 @@ define(function (require, exports) {
 	}
 
 
-	// different event name
-	exports.mixin = function (Class) {
+	var listenToPro = function (other, target, event, callback) {
+		var callbackWrap = function () {
+			var e
+			if (arguments.length > 0 && ((e = arguments[arguments.length - 1]) instanceof PropagationEvent)) {
+				// last arg is propagation event needed
+				if (e.path == target) {
+					callback.apply(this, arguments)
+				}
+			}
+		}
+
+		this.listenTo(other, event, callbackWrap)
+	}
+
+
+	var mixinObject = function () {
+		return {
+			listenToPro: listenToPro
+		}
+	}
+
+	var mixinClass = function (Class) {
 		var oldTrigger = Class.prototype.trigger
 
 		var triggerPropagationEvent = function () {
@@ -37,7 +55,7 @@ define(function (require, exports) {
 				}
 
 				if (target) { // todo 真的需要判断吗?
-					var newE = clone(e)
+					var newE = clonePropagationEvent(e)
 					newE.path = e.path == '' ? name : e.path + ' ' + name
 					newE[name] = this // todo 名称可能会重复导致对象被覆盖
 					var paras = Array.prototype.slice.call(arguments)
@@ -72,22 +90,17 @@ define(function (require, exports) {
 
 		/** Listen to event propagation
 		 */
-		Class.prototype.listenToPro = function (other, target, event, callback) {
-			var callbackWrap = function () {
-				var e
-				e = arguments[arguments.length - 1]
-				if (arguments.length > 0 && ((e = arguments[arguments.length - 1]) instanceof PropagationEvent)) {
-					// last arg is propagation event needed
-					if (e.path == target) {
-						callback.apply(this, arguments)
-					}
-				}
-			}
-
-			this.listenTo(other, event, callbackWrap)
-		}
+		Class.prototype.listenToPro = listenToPro
 
 		return Class
 	}
 
+
+	exports.mixin = function (Class) {
+		if (Class) {
+			return mixinClass(Class)
+		} else {
+			return mixinObject()
+		}
+	}
 })

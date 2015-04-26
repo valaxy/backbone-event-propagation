@@ -1,4 +1,4 @@
-> Please check unit test to see what this module can do
+> This is under development
 > Should make more test
 > Should write more document
 
