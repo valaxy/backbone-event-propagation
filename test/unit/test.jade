@@ -15,10 +15,9 @@ html
         script.
             requirejs.config({
                 baseUrl: '../../',
-                paths: {
-                    sinon: 'bower_components/sinonjs/sinon'
+                paths  : {
+                    underscore: 'bower_components/underscore/underscore',
+                    sinon     : 'bower_components/sinonjs/sinon'
                 }
             })
-            require(['test/unit/test'], function () {
-
-            })
+            require(['test/unit/test'])

@@ -1,25 +1,26 @@
 {
-    "name": "backbone-event-propagation",
-    "version": "0.1.0",
-    "homepage": "https://github.com/valaxy/backbone-event-propagation",
-    "authors": [
-        "valaxy <valaxy@qq.com>"
-    ],
-    "main": "src/index.js",
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "devDependencies": {
-        "requirejs": "~2.1.16",
-        "qunit": "~1.17.1",
-        "sinonjs": "~1.14.1"
-    },
-    "dependencies": {
-        "backbone": "~1.1.2"
-    }
+  "name": "backbone-event-propagation",
+  "version": "0.1.0-dev",
+  "homepage": "https://github.com/valaxy/backbone-event-propagation",
+  "authors": [
+    "valaxy <valaxy@qq.com>"
+  ],
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "requirejs": "~2.1.16",
+    "qunit": "~1.17.1",
+    "sinonjs": "~1.14.1"
+  },
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "underscore": "~1.8.3"
+  }
 }
